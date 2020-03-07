@@ -1,5 +1,5 @@
 from tkinter import *
-class main:
+class main():
     def __init__(self):
         t = Tk()
         self.t = t
@@ -19,13 +19,12 @@ class main:
         c2 = Button(f2, text="Sonu Nigam", fg='black', width=12)
         c3 = Button(f1, text="Armaan Malik", fg='green', width=12)
         c4 = Button(f2, text="Shreya Ghoshal", fg='blue', width=12)
-        c5 = Button(f2, text="back", fg='black', width=12)
+        c5 = Button(f2, text="back", fg='black', width=12, command=self.fpage)
         c5.pack()
         c1.pack(side=TOP)
         c2.pack(side=TOP)
         c3.pack(side=BOTTOM)
         c4.pack(side=BOTTOM)
-
 
     def song_list(self):
         print("song")
@@ -46,7 +45,6 @@ class main:
         c3.pack(side=BOTTOM)
         c4.pack(side=BOTTOM)
 
-
     def alb_list(self):
         print("album")
         self.t.destroy()
@@ -65,7 +63,6 @@ class main:
         c2.pack(side=TOP)
         c3.pack(side=BOTTOM)
         c4.pack(side=BOTTOM)
-
 
     def mood_list(self):
         print("mood")
@@ -95,19 +92,20 @@ class main:
         c8.pack(side=BOTTOM)
 
     def fpage(self):
-        self.t =Tk()
+        self.t = Tk()
         b1 = Button(self.t, text="Album", fg='red', width=10, height=10, command=self.alb_list)
         b2 = Button(self.t, text="Song", fg='black', width=10, height=10, command=self.song_list)
         b3 = Button(self.t, text="Mood", fg='green', width=10, height=10, command=self.mood_list)
         b4 = Button(self.t, text="Artist", fg='blue', width=10, height=10, command=self.art_list)
-        #b5=Button(t,text="Playlist",fg='violet')
+        # b5=Button(t,text="Playlist",fg='violet')
 
         b1.grid(row=0, column=0)
         b2.grid(row=0, column=3)
-        #b5.grid(row=1,column=2)
+        # b5.grid(row=1,column=2)
         b4.grid(row=2, column=0)
         b3.grid(row=2, column=3)
 
         self.t.mainloop()
+
 
 o = main()
