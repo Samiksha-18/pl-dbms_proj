@@ -3,25 +3,24 @@ import sqlite3
 import pygame
 import re
 
-connect = sqlite3.connect('emotionplayer.db')
+connect = sqlite3.connect('emotionplayerfinal.db')
 cursor = connect.cursor()
 global index
 index = 0
 
 
 class main:
-    global jo, jo1, jo2, jo3,index,va
+    global jo, jo1, jo2, jo3, index, va
     jo = []
     jo1 = []
     jo2 = []
     jo3 = []
 
-
     def __init__(self):
         self.fpage()
 
     #################
-    #Basic Player Functions
+    # Basic Player Functions
 
     def updatelabel(self):
         global index
@@ -57,113 +56,6 @@ class main:
         pygame.mixer.music.play()
         self.updatelabel()
 
-    #################
-
-    def ars(self):
-        # Arijit Singh_Player
-
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute(
-            "Select * from song so left outer join songart s on s.s_id=so.s_id left outer join artist a on a.art_id = s.art_id where art_name='Arijit Singh'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player1()
-
-    def sn(self):
-        # Sonu Nigam_Player
-
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute(
-            "Select * from song so left outer join songart s on s.s_id=so.s_id left outer join artist a on a.art_id = s.art_id where art_name='Vishal Dadlani'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player1()
-
-
-    def mc(self):
-        # Mohit Chauhan_Player
-
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute(
-            "Select * from song so left outer join songart s on s.s_id=so.s_id left outer join artist a on a.art_id = s.art_id where art_name='Mohit Chauhan'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player1()
-
-    def sg(self):
-        # Sheya Ghoshal_Player
-
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute(
-            "Select * from song so left outer join songart s on s.s_id=so.s_id left outer join artist a on a.art_id = s.art_id where art_name='Shreya Ghoshal'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player1()
-
     ##################
 
     def player1(self):
@@ -173,8 +65,8 @@ class main:
         global va
         a.destroy()
         b = Tk()
-        b.title("                             MUSIC PLAYER")
-        b.geometry('428x446')
+        b.title("                             SYMPHONY")
+        b.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l1 = Label(b, image=r)
         l1.place(x=0, y=0)
@@ -186,13 +78,14 @@ class main:
 
         def select(evt):
             global index
-            index=0
-            val=li.curselection()
-            index=int(val[0])
+            index = 0
+            val = li.curselection()
+            index = int(val[0])
             self.updatelabel()
             pygame.mixer.init()
             pygame.mixer.music.load(jo1[index])
             pygame.mixer.music.play()
+
         li.bind('<<ListboxSelect>>', select)
 
         s = Scrollbar(b, orient='vertical')
@@ -234,38 +127,118 @@ class main:
 
     def art_list(self):
         # t.destroy()
+
         global a
+        global va
+
         a = Tk()
-        a.title("                             MUSIC PLAYER")
-        a.geometry('428x446')
+        a.title("                                       SYMPHONY")
+        a.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l = Label(a, image=r)
         l.place(x=0, y=0)
-
         a.resizable(False, False)
-        c1 = Button(a, text="ARIJIT SINGH", font='Courier 16 bold', bg='white', fg='red', width=17, bd=1,
-                    relief='ridge', height=2,
-                    command=self.ars)
-        c2 = Button(a, text="VISHAL DADLANI", font='Courier 16 bold', bg='white', fg='palevioletred2', width=17, bd=1,
-                    relief='ridge', height=2,
-                    command=self.sn)
-        c3 = Button(a, text="MOHIT CHAUHAN", font='Courier 16 bold', bg='white', fg='green', width=17, bd=1,
-                    relief='ridge', height=2,
-                    command=self.mc)
-        c4 = Button(a, text="SHREYA GHOSHAL", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=17, bd=1,
-                    relief='ridge', height=2,
-                    command=self.sg)
 
-        c5 = Button(a, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=12, bd=1, relief='ridge',
-                    height=1,
-                    command=self.go_back)
+        f = Frame(a,bg='black')
+        f2 = Frame(a)
+        e = Entry(a)
+        global index
+        index = 0
+        jo.clear()
+        jo1.clear()
+        jo2.clear()
 
-        c5.place(x=10, y=10)
+        cursor.execute("Select * from artist")
+        fet = cursor.fetchall()
+        for i in fet:
+            jo.append(i)
+        for i in fet:
+            jo1.append(i[1])
+        for i in fet:
+            p = i[1].title()
+            jo2.append(p)
+            jo3.append(p.upper())
+        pygame.mixer.init()
+        l14 = jo1.copy()
+        l15 = jo2.copy()
 
-        c1.place(x=10, y=110)
-        c2.place(x=10, y=190)
-        c3.place(x=10, y=270)
-        c4.place(x=10, y=360)
+        def select(evt):
+            global index
+            index = 0
+            val = lb.get(lb.curselection())
+            val1 = val.title()
+
+            jo.clear()
+            jo1.clear()
+            jo2.clear()
+            jo3.clear()
+
+            cursor.execute(
+                "Select * from song so left outer join songart s on s.s_id=so.s_id left outer join artist a on a.art_id = s.art_id where art_name=(?)",
+                (val1,))
+            fet = cursor.fetchall()
+            for i in fet:
+                jo.append(i)
+            for i in fet:
+                jo1.append(i[3])
+            for i in fet:
+                p = i[1].title()
+                jo2.append(p)
+                jo3.append(p.upper())
+            pygame.mixer.init()
+            pygame.mixer.music.load(jo1[index])
+
+            self.player1()
+
+        global lb
+        global va
+        lb = Listbox(f,fg='deepskyblue4', font=('times', 13),width=22,height=15)
+        lb.bind('<<ListboxSelect>>', select)
+        lb.pack(side=LEFT, fill=Y)
+
+        s = Scrollbar(f, orient='vertical')
+        s.config(command=lb.yview)
+        s.pack(side=RIGHT, fill=Y)
+
+        lb.config(yscrollcommand=s.set)
+        l13 = []
+        for items in jo2:
+            lb.insert(END, items)
+
+        def search():
+            l12 = []
+            l12.clear()
+            l14.clear()
+            l15.clear()
+            x = e.get().lower()
+
+            for se in jo2:
+                if re.search(x, se.lower()):
+                    l12.append(se)
+
+            if l12 != []:
+                lb.delete(0, 'end')
+            for items in l12:
+                lb.insert(END, items)
+                item = items.title()
+                l13.append(jo2.index(item))
+            for u in l13:
+                l15.append(jo2[u])
+                l14.append(jo1[u])
+
+        btn1 = Button(f2, text="Back", font='Courier 12 bold', bg='white', fg='green', width=6, bd=1,
+                      relief='ridge', height=1, command=self.song_back)
+
+        b = Button(a, text="SEARCH", font='Courier 12 bold', bg='white', fg='indianred2', width=6, bd=1,
+                   relief='ridge', height=1, command=search)
+
+        btn1.bind('<Button-1>')
+
+        btn1.pack(side=LEFT, anchor=NW)
+        f2.pack(side=TOP, fill=X)
+        e.pack(fill=X, pady=10)
+        b.pack()
+        f.pack(pady=5, padx=5, anchor=N)
         a.mainloop()
 
     def artist_back(self):
@@ -324,6 +297,7 @@ class main:
         pygame.mixer.music.load(jo1[index])
 
         self.player2()
+
     def spa(self):
         global index
         index = 0
@@ -346,7 +320,6 @@ class main:
         pygame.mixer.music.load(jo1[index])
 
         self.player2()
-
 
     def pun(self):
         global index
@@ -371,15 +344,14 @@ class main:
 
         self.player2()
 
-
     def player2(self):
         # language player
         global b
         global va
         a.destroy()
         b = Tk()
-        b.title("                             MUSIC PLAYER")
-        b.geometry('428x446')
+        b.title("                             SYMPHONY")
+        b.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l1 = Label(b, image=r)
         l1.place(x=0, y=0)
@@ -391,13 +363,14 @@ class main:
 
         def select(evt):
             global index
-            index=0
-            val=li.curselection()
-            index=int(val[0])
+            index = 0
+            val = li.curselection()
+            index = int(val[0])
             self.updatelabel()
             pygame.mixer.init()
             pygame.mixer.music.load(jo1[index])
             pygame.mixer.music.play()
+
         li.bind('<<ListboxSelect>>', select)
 
         s = Scrollbar(b, orient='vertical')
@@ -409,15 +382,15 @@ class main:
         self.updatelabel()
 
         c1 = Button(b, text="pause", font='Courier 16 bold', bg='white', fg='red', width=8, bd=1, relief='ridge',
-                    height=2,command=self.pause)
+                    height=2, command=self.pause)
         c2 = Button(b, text="play", font='Courier 16 bold', bg='white', fg='palevioletred2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.play)
+                    relief='ridge', height=2, command=self.play)
         c3 = Button(b, text="stop", font='Courier 16 bold', bg='white', fg='green', width=8, bd=1, relief='ridge',
-                    height=2,command=self.stop)
+                    height=2, command=self.stop)
         c4 = Button(b, text="previous", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.prev)
+                    relief='ridge', height=2, command=self.prev)
         c6 = Button(b, text="next", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.next)
+                    relief='ridge', height=2, command=self.next)
 
         c5 = Button(b, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1, relief='ridge',
                     height=1, command=self.language_back)
@@ -438,14 +411,12 @@ class main:
         pygame.mixer.music.play()
         b.mainloop()
 
-
-
     def language_list(self):
         # t.destroy()
         global a
         a = Tk()
-        a.title("                             MUSIC PLAYER")
-        a.geometry('428x446')
+        a.title("                             SYMPHONY")
+        a.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l = Label(a, image=r)
         l.place(x=0, y=0)
@@ -484,102 +455,6 @@ class main:
         t.destroy()
         self.language_list()
 
-    ################
-
-    def yjhd(self):
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute("Select * from song so left outer join songalb s on s.s_id=so.s_id left outer join album a on a.al_id = s.al_id where al_name='YJHD'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player3()
-
-    def aash(self):
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute("Select * from song so left outer join songalb s on s.s_id=so.s_id left outer join album a on a.al_id = s.al_id where al_name='Aashiqui 2'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player3()
-
-
-    def rock(self):
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute("Select * from song so left outer join songalb s on s.s_id=so.s_id left outer join album a on a.al_id = s.al_id where al_name='Rockstar'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player3()
-
-
-    def soty(self):
-        global index
-        index = 0
-        jo.clear()
-        jo1.clear()
-        jo2.clear()
-        jo3.clear()
-
-        cursor.execute("Select * from song so left outer join songalb s on s.s_id=so.s_id left outer join album a on a.al_id = s.al_id where al_name='SOTY'")
-        fet = cursor.fetchall()
-        for i in fet:
-            jo.append(i)
-        for i in fet:
-            jo1.append(i[3])
-        for i in fet:
-            p = i[1].title()
-            jo2.append(p)
-            jo3.append(p.upper())
-        pygame.mixer.init()
-        pygame.mixer.music.load(jo1[index])
-
-        self.player3()
-
     #################
 
     def player3(self):
@@ -588,8 +463,8 @@ class main:
         global va
         a.destroy()
         b = Tk()
-        b.title("                             MUSIC PLAYER")
-        b.geometry('428x446')
+        b.title("                             SYMPHONY")
+        b.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l1 = Label(b, image=r)
         l1.place(x=0, y=0)
@@ -601,13 +476,14 @@ class main:
 
         def select(evt):
             global index
-            index=0
-            val=li.curselection()
-            index=int(val[0])
+            index = 0
+            val = li.curselection()
+            index = int(val[0])
             self.updatelabel()
             pygame.mixer.init()
             pygame.mixer.music.load(jo1[index])
             pygame.mixer.music.play()
+
         li.bind('<<ListboxSelect>>', select)
 
         s = Scrollbar(b, orient='vertical')
@@ -618,15 +494,15 @@ class main:
         songlabel = Label(b, textvariable=va, width=35)
         self.updatelabel()
         c1 = Button(b, text="pause", font='Courier 16 bold', bg='white', fg='red', width=8, bd=1, relief='ridge',
-                    height=2,command=self.pause)
+                    height=2, command=self.pause)
         c2 = Button(b, text="play", font='Courier 16 bold', bg='white', fg='palevioletred2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.play)
+                    relief='ridge', height=2, command=self.play)
         c3 = Button(b, text="stop", font='Courier 16 bold', bg='white', fg='green', width=8, bd=1, relief='ridge',
-                    height=2,command=self.stop)
+                    height=2, command=self.stop)
         c4 = Button(b, text="previous", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.prev)
+                    relief='ridge', height=2, command=self.prev)
         c6 = Button(b, text="next", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.next)
+                    relief='ridge', height=2, command=self.next)
 
         c5 = Button(b, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1, relief='ridge',
                     height=1, command=self.alb_back)
@@ -649,35 +525,117 @@ class main:
 
     def alb_list(self):
         # t.destroy()
+
         global a
+        global va
+
         a = Tk()
-        a.title("                             MUSIC PLAYER")
-        a.geometry('428x446')
+        a.title("                             SYMPHONY")
+        a.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l = Label(a, image=r)
         l.place(x=0, y=0)
-
         a.resizable(False, False)
 
-        c1 = Button(a, text="YJHD", font='Courier 16 bold', bg='white', fg='red', width=17, bd=1, relief='ridge',
-                    height=2, command=self.yjhd)
-        c2 = Button(a, text="AASHIQI 2", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=17, bd=1,
-                    relief='ridge', height=2, command=self.aash)
-        c3 = Button(a, text="SOTY", font='Courier 16 bold', bg='white', fg='orchid3', width=17, bd=1, relief='ridge',
-                    height=2, command=self.soty)
-        c4 = Button(a, text="ROCKSTAR", font='Courier 16 bold', bg='white', fg='palevioletred3', width=17, bd=1,
-                    relief='ridge', height=2, command=self.rock)
+        f = Frame(a)
+        f2 = Frame(a)
+        e = Entry(a)
+        global index
+        index = 0
+        jo.clear()
+        jo1.clear()
+        jo2.clear()
 
-        c5 = Button(a, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=12, bd=1, relief='ridge',
-                    height=1,
-                    command=self.go_back)
-        c5.place(x=10, y=10)
+        cursor.execute("Select * from album")
+        fet = cursor.fetchall()
+        for i in fet:
+            jo.append(i)
+        for i in fet:
+            jo1.append(i[1])
+        for i in fet:
+            p = i[1].title()
+            jo2.append(p)
+            jo3.append(p.upper())
+        pygame.mixer.init()
+        l14 = jo1.copy()
+        l15 = jo2.copy()
 
-        c1.place(x=10, y=110)
-        c2.place(x=10, y=190)
-        c3.place(x=10, y=270)
-        c4.place(x=10, y=360)
+        def select(evt):
+            global index
+            index = 0
+            val = lb.get(lb.curselection())
+            val1 = val.title()
 
+            jo.clear()
+            jo1.clear()
+            jo2.clear()
+            jo3.clear()
+
+            cursor.execute(
+                "Select * from song so left outer join album a on a.alb_id=so.alb_id where al_name=(?)", (val1,))
+            fet = cursor.fetchall()
+            for i in fet:
+                jo.append(i)
+            for i in fet:
+                jo1.append(i[3])
+            for i in fet:
+                p = i[1].title()
+                jo2.append(p)
+                jo3.append(p.upper())
+            pygame.mixer.init()
+            pygame.mixer.music.load(jo1[index])
+
+            self.player3()
+
+        global lb
+        global va
+        lb = Listbox(f, font=('times', 13),fg='deepskyblue4',height=15,width=22)
+        lb.bind('<<ListboxSelect>>', select)
+        lb.pack(side=LEFT, fill=Y)
+
+        s = Scrollbar(f, orient='vertical')
+        s.config(command=lb.yview)
+        s.pack(side=RIGHT, fill=Y)
+
+        lb.config(yscrollcommand=s.set)
+        l13 = []
+        for items in jo2:
+            lb.insert(END, items)
+
+        def search():
+            l12 = []
+            l12.clear()
+            l14.clear()
+            l15.clear()
+            x = e.get().lower()
+
+            for se in jo2:
+                if re.search(x, se.lower()):
+                    l12.append(se)
+
+            if l12 != []:
+                lb.delete(0, 'end')
+            for items in l12:
+                lb.insert(END, items)
+                item = items.title()
+                l13.append(jo2.index(item))
+            for u in l13:
+                l15.append(jo2[u])
+                l14.append(jo1[u])
+
+        btn1 = Button(f2, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1,
+                      relief='ridge', height=1, command=self.song_back)
+
+        b = Button(a, text="Search", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1,
+                   relief='ridge', height=1, command=search)
+
+        btn1.bind('<Button-1>')
+
+        btn1.pack(side=LEFT, anchor=NW)
+        f2.pack(side=TOP, fill=X)
+        e.pack(fill=X, pady=10)
+        b.pack()
+        f.pack(pady=10, padx=30, anchor=N)
         a.mainloop()
 
     def alb_back(self):
@@ -699,7 +657,8 @@ class main:
         jo2.clear()
         jo3.clear()
 
-        cursor.execute("Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Happy'")
+        cursor.execute(
+            "Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Happy'")
         fet = cursor.fetchall()
         for i in fet:
             jo.append(i)
@@ -713,7 +672,6 @@ class main:
         pygame.mixer.music.load(jo1[index])
 
         self.player4()
-
 
     def sad(self):
         global index
@@ -723,7 +681,8 @@ class main:
         jo2.clear()
         jo3.clear()
 
-        cursor.execute("Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Sad'")
+        cursor.execute(
+            "Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Sad'")
         fet = cursor.fetchall()
         for i in fet:
             jo.append(i)
@@ -738,7 +697,6 @@ class main:
 
         self.player4()
 
-
     def rom(self):
         global index
         index = 0
@@ -747,7 +705,8 @@ class main:
         jo2.clear()
         jo3.clear()
 
-        cursor.execute("Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Romantic'")
+        cursor.execute(
+            "Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Romantic'")
         fet = cursor.fetchall()
         for i in fet:
             jo.append(i)
@@ -770,7 +729,8 @@ class main:
         jo2.clear()
         jo3.clear()
 
-        cursor.execute("Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Drive Time'")
+        cursor.execute(
+            "Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Drive Time'")
         fet = cursor.fetchall()
         for i in fet:
             jo.append(i)
@@ -785,7 +745,6 @@ class main:
 
         self.player4()
 
-
     def party(self):
         global index
         index = 0
@@ -794,7 +753,8 @@ class main:
         jo2.clear()
         jo3.clear()
 
-        cursor.execute("Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Party'")
+        cursor.execute(
+            "Select * from song so left outer join songemo s on s.s_id=so.s_id left outer join emotion e on e.e_id = s.e_id where e_name='Party'")
         fet = cursor.fetchall()
         for i in fet:
             jo.append(i)
@@ -807,8 +767,7 @@ class main:
         pygame.mixer.init()
         pygame.mixer.music.load(jo1[index])
 
-        self.player3()
-
+        self.player4()
 
     def player4(self):
         # emotion player
@@ -816,8 +775,8 @@ class main:
         global va
         a.destroy()
         b = Tk()
-        b.title("                             MUSIC PLAYER")
-        b.geometry('428x446')
+        b.title("                             SYMPHONY")
+        b.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l1 = Label(b, image=r)
         l1.place(x=0, y=0)
@@ -826,15 +785,17 @@ class main:
         jo2.reverse()
         for c in jo2:
             li.insert(0, c)
+
         def select(evt):
             global index
-            index=0
-            val=li.curselection()
-            index=int(val[0])
+            index = 0
+            val = li.curselection()
+            index = int(val[0])
             self.updatelabel()
             pygame.mixer.init()
             pygame.mixer.music.load(jo1[index])
             pygame.mixer.music.play()
+
         li.bind('<<ListboxSelect>>', select)
 
         s = Scrollbar(b, orient='vertical')
@@ -845,15 +806,15 @@ class main:
         songlabel = Label(b, textvariable=va, width=35)
         self.updatelabel()
         c1 = Button(b, text="pause", font='Courier 16 bold', bg='white', fg='red', width=8, bd=1, relief='ridge',
-                    height=2,command=self.pause)
+                    height=2, command=self.pause)
         c2 = Button(b, text="play", font='Courier 16 bold', bg='white', fg='palevioletred2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.play)
+                    relief='ridge', height=2, command=self.play)
         c3 = Button(b, text="stop", font='Courier 16 bold', bg='white', fg='green', width=8, bd=1, relief='ridge',
-                    height=2,command=self.stop)
+                    height=2, command=self.stop)
         c4 = Button(b, text="previous", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.prev)
+                    relief='ridge', height=2, command=self.prev)
         c6 = Button(b, text="next", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
-                    relief='ridge', height=2,command=self.next)
+                    relief='ridge', height=2, command=self.next)
 
         c5 = Button(b, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1, relief='ridge',
                     height=1, command=self.emotion_back)
@@ -878,8 +839,8 @@ class main:
         # t.destroy()
         global a
         a = Tk()
-        a.title("                             MUSIC PLAYER")
-        a.geometry('428x446')
+        a.title("                             SYMPHONY")
+        a.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l = Label(a, image=r)
         l.place(x=0, y=0)
@@ -924,23 +885,21 @@ class main:
         global va
 
         a = Tk()
-        a.title("                             MUSIC PLAYER")
-        a.geometry('428x446')
+        a.title("                             SYMPHONY")
+        a.geometry('500x446')
         r = PhotoImage(file=r"background.png")
         l = Label(a, image=r)
         l.place(x=0, y=0)
         a.resizable(False, False)
 
-
         f = Frame(a)
-        f2=Frame(a)
+        f2 = Frame(a)
         e = Entry(a)
         global index
         index = 0
         jo.clear()
         jo1.clear()
         jo2.clear()
-
 
         cursor.execute("Select * from song")
         fet = cursor.fetchall()
@@ -955,6 +914,7 @@ class main:
         pygame.mixer.init()
         l14 = jo1.copy()
         l15 = jo2.copy()
+
         def snext():
             global index
             if (index == len(l14) - 1):
@@ -972,21 +932,20 @@ class main:
             pygame.mixer.music.load(l14[index])
             pygame.mixer.music.play()
 
-
         def select(evt):
             global index
-            index=0
-            val=lb.get(lb.curselection())
-            val1=val.title()
-            index=l15.index(val1)
+            index = 0
+            val = lb.get(lb.curselection())
+            val1 = val.title()
+            index = l15.index(val1)
+            # print(val1)
             pygame.mixer.init()
             pygame.mixer.music.load(l14[index])
             pygame.mixer.music.play()
 
-
         global lb
         global va
-        lb = Listbox(f, font=('times', 13))
+        lb = Listbox(f, font=('times', 13), fg='deepskyblue3')
         lb.bind('<<ListboxSelect>>', select)
         lb.pack(side=LEFT, fill=Y)
 
@@ -995,77 +954,76 @@ class main:
         s.pack(side=RIGHT, fill=Y)
 
         lb.config(yscrollcommand=s.set)
-        l13=[]
+        l13 = []
         for items in jo2:
             lb.insert(END, items)
+
         def search():
             l12 = []
             l12.clear()
             l14.clear()
             l15.clear()
-            x=e.get().lower()
+            x = e.get().lower()
 
             for se in jo2:
-                if re.search(x,se.lower()):
+                if re.search(x, se.lower()):
                     l12.append(se)
 
-            if l12!=[]:
+            if l12 != []:
                 lb.delete(0, 'end')
             for items in l12:
                 lb.insert(END, items)
-                item=items.title()
+                item = items.title()
                 l13.append(jo2.index(item))
             for u in l13:
                 l15.append(jo2[u])
                 l14.append(jo1[u])
 
-
-        c1 = Button(a, text="Pause", font='Courier 16 bold', bg='white', fg='red', width=8, bd=1, relief='ridge',
+        c1 = Button(a, text="Pause", font='Courier 16 bold', bg='white', fg='red', width=9, bd=1, relief='ridge',
                     height=2, command=self.pause)
-        c2 = Button(a, text="Play", font='Courier 16 bold', bg='white', fg='palevioletred2', width=8, bd=1,
+        c2 = Button(a, text="Play", font='Courier 16 bold', bg='white', fg='palevioletred2', width=9, bd=1,
                     relief='ridge', height=2, command=self.play)
-        c4 = Button(a, text="Previous", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=8, bd=1,
+        c4 = Button(a, text="Previous", font='Courier 16 bold', bg='white', fg='deep sky blue2', width=9, bd=1,
                     relief='ridge', height=2, command=sprev)
-        c6 = Button(a, text="Next", font='Courier 16 bold', bg='white', fg='green', width=8, bd=1,
+        c6 = Button(a, text="Next", font='Courier 16 bold', bg='white', fg='green', width=9, bd=1,
                     relief='ridge', height=2, command=snext)
 
         c5 = Button(f2, text="Back", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1,
-                    relief='ridge',height=1, command=self.song_back)
+                    relief='ridge', height=1, command=self.song_back)
 
-        b=Button(a, text="Search", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1,
-                    relief='ridge',height=1,command=search)
+        b = Button(a, text="Search", font='Courier 12 bold', bg='white', fg='deep pink', width=6, bd=1,
+                   relief='ridge', height=1, command=search)
 
         c2.bind('<Button-1>')
         c1.bind('<Button-1>')
         c4.bind('<Button-1>')
         c5.bind('<Button-1>')
+        c6.bind('<Button-1>')
+        b.bind('<Button-1>')
 
-        c5.pack(side=LEFT,anchor=NW)
-        f2.pack(side=TOP,fill=X)
-        e.pack(fill=X,pady=10)
+        c5.pack(side=LEFT, anchor=NW)
+        f2.pack(side=TOP, fill=X)
+        e.pack(fill=X, pady=10)
         b.pack()
-        f.pack(pady=10,padx=30,anchor=N)
+        f.pack(pady=10, padx=30, anchor=N)
         c4.pack(side=LEFT)
         c2.pack(side=LEFT)
         c1.pack(side=LEFT)
         c6.pack(side=LEFT)
+
         a.mainloop()
 
-
-    def play_list(self):
-        pass
     def song_back(self):
         self.stop()
         a.destroy()
         self.fpage()
+
     def song_call(self):
         t.destroy()
         self.song_list()
+
     def play_back(self):
         pass
-    def play_call(self):
-        t.destroy()
-        self.play_list()
 
     ##############
 
@@ -1076,7 +1034,7 @@ class main:
     def fpage(self):
         global t
         t = Tk()
-        t.title("                             MUSIC PLAYER")
+        t.title("                             SYMPHONY")
         t.geometry('500x446')
         a = PhotoImage(file=r"background.png")
         l = Label(t, image=a)
@@ -1095,21 +1053,19 @@ class main:
         b4 = Button(t, text="ARTIST", font='Courier 22 bold', bg='white', fg='indian red2', width=8, height=3, bd=1,
                     relief='ridge',
                     command=self.art_call)
-        b5= Button(t, text="SONG", font='Courier 22 bold', bg='white', fg='green', width=8, height=3, bd=1,
+        b5 = Button(t, text="SONG", font='Courier 22 bold', bg='white', fg='green', width=8, height=3, bd=1,
                     relief='ridge',
                     command=self.song_call)
-        b6 = Button(t, text="PLAYLIST", font='Courier 22 bold', bg='white', fg='deep pink', width=8, height=3, bd=1,
-                    relief='ridge',
-                    command=self.play_call)
+
 
         b1.place(x=10, y=10)
         b2.place(x=160, y=10)
-        b4.place(x=10, y=150)
-        b3.place(x=160, y=150)
+        b4.place(x=160, y=290)
+        b3.place(x=80, y=150)
         b5.place(x=10, y=290)
-        b6.place(x=160, y=290)
 
         t.mainloop()
 
 
 o = main()
+
